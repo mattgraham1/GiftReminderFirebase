@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "868752121258",
+    "firebase_url": "https://giftreminder-28e90.firebaseio.com",
+    "project_id": "giftreminder-28e90",
+    "storage_bucket": "giftreminder-28e90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:868752121258:android:60026e77301731e5",
+        "android_client_info": {
+          "package_name": "org.graham.com.giftreminderfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "868752121258-p5tof036ib6vlgivs7dk0j071vuu39a7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWi3WH-yNC7HpgEAbisTlNd6WlWQhuKCk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

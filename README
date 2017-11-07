@@ -1,0 +1,11 @@
+Tools:
+Android
+Kotlin
+Firebase
+
+Functionality:
+1. Dispaly List of Users, when selected display list of gift exchanges.
+2. Ability for user to add a new person.
+3. Ability for user to add a new gift to a specific user.
+4. Ability for user to delete a person
+5. Ability for user to delete a gift from a persons list of gifts. 
