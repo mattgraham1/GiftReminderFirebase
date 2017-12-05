@@ -3,13 +3,16 @@ package org.graham.com.giftreminderfirebase
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
-
-import kotlinx.android.synthetic.main.activity_main.*
-import com.google.firebase.database.DatabaseReference
+import android.widget.LinearLayout
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import java.util.*
+import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,15 +22,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            // Write a message to the database
-            val database = FirebaseDatabase.getInstance()
-            val myRef = database.getReference("users").push()
-            var person = Person("Bill Graham", "08/30/1975",
-                    Gift("Card", "50.00", "08/30/1975"));
-            myRef.setValue(person)
+        var recyclerView = findViewById<RecyclerView>(R.id.main_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
-            Snackbar.make(view, "Added " + person.name + " to database.", Snackbar.LENGTH_LONG)
+        initRecyclerView(recyclerView)
+
+        fab.setOnClickListener { view ->
+
+            Snackbar.make(view, "Show Adding User", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
     }
@@ -46,5 +48,29 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun initRecyclerView(recyclerView: RecyclerView) {
+        val persons = ArrayList<Person>()
+
+        FirebaseDatabase.getInstance().getReference("users")
+                .addListenerForSingleValueEvent(object: ValueEventListener {
+
+            override fun onCancelled(error: DatabaseError?) {
+                println("error: " + error!!.message)
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot?) {
+                val children = snapshot!!.children
+
+                children.forEach {
+                    val person: Person = it.getValue(Person::class.java) as Person
+                    persons.add(person)
+                }
+
+                val adapter = MainAdapter(persons)
+                recyclerView.adapter = adapter
+            }
+        })
     }
 }

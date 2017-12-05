@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <TextView
+      android:text="TextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/textView"
+      tools:text="Add New User"
+      android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+      android:layout_marginTop="8dp"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginEnd="8dp"
+      app:layout_constraintStart_toStartOf="parent"
+      android:layout_marginStart="8dp"
+      />
+  <EditText
+      android:layout_width="298dp"
+      android:layout_height="52dp"
+      android:inputType="textPersonName"
+      android:text="Name"
+      android:ems="10"
+      tools:layout_editor_absoluteY="63dp"
+      android:id="@+id/editText"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginEnd="8dp"
+      app:layout_constraintStart_toStartOf="parent"
+      android:layout_marginStart="8dp"
+      android:textAlignment="center"
+      />
+</android.support.constraint.ConstraintLayout>
