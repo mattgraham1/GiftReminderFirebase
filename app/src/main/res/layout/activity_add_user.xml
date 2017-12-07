@@ -22,7 +22,7 @@
       />
 
   <EditText
-      android:id="@+id/editText"
+      android:id="@+id/edittext_name"
       android:layout_width="285dp"
       android:layout_height="50dp"
       android:layout_marginEnd="8dp"
@@ -37,7 +37,7 @@
       app:layout_constraintTop_toBottomOf="@+id/textView" />
 
   <EditText
-      android:id="@+id/editText2"
+      android:id="@+id/edittext_reminder_date"
       android:layout_width="285dp"
       android:layout_height="50dp"
       android:layout_marginEnd="8dp"
@@ -49,10 +49,10 @@
       android:textAlignment="center"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/editText" />
+      app:layout_constraintTop_toBottomOf="@+id/edittext_name" />
 
   <EditText
-      android:id="@+id/editText3"
+      android:id="@+id/edittext_gift_description"
       android:layout_width="285dp"
       android:layout_height="50dp"
       android:layout_marginEnd="8dp"
@@ -64,10 +64,10 @@
       android:textAlignment="center"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/editText2" />
+      app:layout_constraintTop_toBottomOf="@+id/edittext_reminder_date" />
 
   <EditText
-      android:id="@+id/editText4"
+      android:id="@+id/edittext_cost"
       android:layout_width="285dp"
       android:layout_height="50dp"
       android:layout_marginEnd="8dp"
@@ -80,5 +80,19 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.503"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/editText3" />
+      app:layout_constraintTop_toBottomOf="@+id/edittext_gift_description" />
+  <Button
+      android:layout_width="164dp"
+      android:layout_height="49dp"
+      android:id="@+id/button_submit"
+      android:layout_marginBottom="8dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginTop="8dp"
+      app:layout_constraintTop_toBottomOf="@+id/edittext_cost"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginEnd="8dp"
+      app:layout_constraintStart_toStartOf="parent"
+      android:layout_marginStart="8dp"
+      tools:text="SUBMIT"
+      />
 </android.support.constraint.ConstraintLayout>

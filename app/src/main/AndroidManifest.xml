@@ -22,7 +22,9 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name=".AddUserActivity"/>
+    <activity android:name=".adapters.AddUserActivity"
+        android:parentActivityName=".MainActivity">
+    </activity>
   </application>
 
 </manifest>

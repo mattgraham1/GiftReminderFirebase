@@ -1,5 +1,6 @@
 package org.graham.com.giftreminderfirebase
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +14,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_main.*
+import org.graham.com.giftreminderfirebase.adapters.AddUserActivity
+import org.graham.com.giftreminderfirebase.models.Person
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView(recyclerView)
 
         fab.setOnClickListener { view ->
-
+            startActivity(Intent(this, AddUserActivity::class.java))
             Snackbar.make(view, "Show Adding User", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import org.graham.com.giftreminderfirebase.models.Person
 import java.util.*
 
 class MainAdapter(val personList: ArrayList<Person>) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
