@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <TextView
+      android:text="Login with Google Gmail Account"
+      android:layout_width="292dp"
+      android:layout_height="32dp"
+      android:id="@+id/textView2"
+      android:textAppearance="@style/TextAppearance.AppCompat.Title"
+      android:textAlignment="center"
+      app:layout_constraintStart_toStartOf="parent"
+      android:layout_marginStart="8dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginEnd="8dp"
+      app:layout_constraintTop_toTopOf="parent"
+      android:layout_marginTop="39dp"
+      />
+  <EditText
+      android:layout_width="215dp"
+      android:layout_height="46dp"
+      android:inputType="textEmailAddress"
+      android:ems="10"
+      android:id="@+id/editText_email"
+      android:hint="Google Email Address"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginEnd="8dp"
+      app:layout_constraintStart_toStartOf="parent"
+      android:layout_marginStart="8dp"
+      android:textAlignment="center"
+      app:layout_constraintHorizontal_bias="0.503"
+      android:layout_marginTop="19dp"
+      app:layout_constraintTop_toBottomOf="@+id/textView2"
+      />
+  <EditText
+      android:layout_width="215dp"
+      android:layout_height="46dp"
+      android:inputType="textPassword"
+      android:ems="10"
+      android:id="@+id/editText_password"
+      android:hint="Gmail Password"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginEnd="8dp"
+      app:layout_constraintStart_toStartOf="parent"
+      android:layout_marginStart="8dp"
+      android:textAlignment="center"
+      android:layout_marginTop="29dp"
+      app:layout_constraintTop_toBottomOf="@+id/editText_email"
+      />
+  <Button
+      android:text="Login"
+      android:layout_width="88dp"
+      android:layout_height="48dp"
+      android:id="@+id/button_login"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginEnd="8dp"
+      app:layout_constraintStart_toStartOf="parent"
+      android:layout_marginStart="8dp"
+      android:textAlignment="center"
+      android:layout_marginTop="32dp"
+      app:layout_constraintTop_toBottomOf="@+id/editText_password"
+      />
+</android.support.constraint.ConstraintLayout>

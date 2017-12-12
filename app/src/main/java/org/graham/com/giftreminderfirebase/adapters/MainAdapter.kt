@@ -1,4 +1,4 @@
-package org.graham.com.giftreminderfirebase
+package org.graham.com.giftreminderfirebase.adapters
 
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import org.graham.com.giftreminderfirebase.R
 import org.graham.com.giftreminderfirebase.models.Person
 import java.util.*
 

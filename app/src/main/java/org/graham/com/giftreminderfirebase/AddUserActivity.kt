@@ -1,4 +1,4 @@
-package org.graham.com.giftreminderfirebase.adapters
+package org.graham.com.giftreminderfirebase
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
