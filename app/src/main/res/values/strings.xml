@@ -2,4 +2,7 @@
   <string name="app_name">GiftReminderFirebase</string>
   <string name="action_settings">Settings</string>
   <string name="action_login">Login</string>
+  <string name="error_user_exists">Error, user already exists!</string>
+  <string name="error_invalid_email">Error, invalid email address!</string>
+  <string name="error_weak_password">Error, weak password!</string>
 </resources>

@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        setSupportActionBar(toolbar)
+
+        val userUid = intent.getStringExtra(Constants.USER_UID)
 
         var recyclerView = findViewById<RecyclerView>(R.id.main_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
@@ -35,6 +36,11 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Show Adding User", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
