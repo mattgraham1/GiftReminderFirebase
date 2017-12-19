@@ -49,6 +49,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signup(email: String, password: String) {
+        if(email.isNullOrBlank() || password.isNullOrBlank()) {
+            Toast.makeText(this, "Email or password is blank.", Toast.LENGTH_LONG).show()
+            return
+        }
+
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task: Task<AuthResult> ->
             buttonLogin?.isEnabled = true
 
@@ -65,6 +70,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(email: String, password: String) {
+        if(email.isNullOrBlank() || password.isNullOrBlank()) {
+            Toast.makeText(this, "Email or password is blank.", Toast.LENGTH_LONG).show()
+            return
+        }
+
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task: Task<AuthResult> ->
             buttonSignup?.isEnabled = true
 
