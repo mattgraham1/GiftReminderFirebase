@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
+import com.google.firebase.database.FirebaseDatabase
+import org.graham.com.giftreminderfirebase.models.User
 
 
 class LoginActivity : AppCompatActivity() {
@@ -50,27 +52,12 @@ class LoginActivity : AppCompatActivity() {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task: Task<AuthResult> ->
             buttonLogin?.isEnabled = true
 
-            if (!task.isSuccessful) {
-                try {
-                    throw task.exception!!
-                } catch (e: FirebaseAuthWeakPasswordException) {
-                    editTextPassword!!.error = getString(R.string.error_weak_password)
-                    editTextPassword!!.requestFocus()
-                } catch (e: FirebaseAuthInvalidCredentialsException) {
-                    editTextEmail!!.error = getString(R.string.error_invalid_email)
-                    editTextEmail!!.requestFocus()
-                } catch (e: FirebaseAuthUserCollisionException) {
-                    editTextEmail!!.error = getString(R.string.error_user_exists)
-                    editTextEmail!!.requestFocus()
-                } catch (e: Exception) {
-                    Log.e("Matt", e.message)
-                }
-            }
+            checkTaskException(task)
 
             if (task.isSuccessful) {
-                val user = firebaseAuth.currentUser
-                Toast.makeText(this, "Successfully logged in, user: " + user, Toast.LENGTH_LONG).show()
-                finish()
+                val currentUser = firebaseAuth.currentUser
+                writeUserToFirebase(currentUser!!)
+                launchMainActivity(currentUser?.uid)
             } else {
                 Toast.makeText(this, "Failed to log in!", Toast.LENGTH_LONG).show()
             }
@@ -81,28 +68,40 @@ class LoginActivity : AppCompatActivity() {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task: Task<AuthResult> ->
             buttonSignup?.isEnabled = true
 
-            if (!task.isSuccessful) {
-                try {
-                    throw task.exception!!
-                } catch (e: FirebaseAuthWeakPasswordException) {
-                    editTextPassword!!.error = getString(R.string.error_weak_password)
-                    editTextPassword!!.requestFocus()
-                } catch (e: FirebaseAuthInvalidCredentialsException) {
-                    editTextEmail!!.error = getString(R.string.error_invalid_email)
-                    editTextEmail!!.requestFocus()
-                } catch (e: FirebaseAuthUserCollisionException) {
-                    editTextEmail!!.error = getString(R.string.error_user_exists)
-                    editTextEmail!!.requestFocus()
-                } catch (e: Exception) {
-                    Log.e("Matt", e.message)
-                }
-            }
+            checkTaskException(task)
 
             if (task.isSuccessful) {
-                val user = firebaseAuth.currentUser
-                launchMainActivity(user?.uid)
+                val currentUser = firebaseAuth.currentUser
+                writeUserToFirebase(currentUser!!)
+                launchMainActivity(currentUser?.uid)
             } else {
                 Toast.makeText(this, "Failed to log in!", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun writeUserToFirebase(currentUser: FirebaseUser) {
+        Log.d("Matt", "display name: " + currentUser.displayName)
+        val user = User(currentUser.email!!, currentUser.uid)
+        FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.uid)
+                .setValue(user)
+    }
+
+    private fun checkTaskException(task: Task<AuthResult>) {
+        if (!task.isSuccessful) {
+            try {
+                throw task.exception!!
+            } catch (e: FirebaseAuthWeakPasswordException) {
+                editTextPassword!!.error = getString(R.string.error_weak_password)
+                editTextPassword!!.requestFocus()
+            } catch (e: FirebaseAuthInvalidCredentialsException) {
+                editTextEmail!!.error = getString(R.string.error_invalid_email)
+                editTextEmail!!.requestFocus()
+            } catch (e: FirebaseAuthUserCollisionException) {
+                editTextEmail!!.error = getString(R.string.error_user_exists)
+                editTextEmail!!.requestFocus()
+            } catch (e: Exception) {
+                Log.e("Matt", e.message)
             }
         }
     }

@@ -2,14 +2,16 @@ package org.graham.com.giftreminderfirebase
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import com.google.firebase.database.FirebaseDatabase
-import org.graham.com.giftreminderfirebase.R
 import org.graham.com.giftreminderfirebase.models.Gift
 import org.graham.com.giftreminderfirebase.models.Person
 
 class AddUserActivity : AppCompatActivity() {
+
+    var userUid: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +28,17 @@ class AddUserActivity : AppCompatActivity() {
             val gift = Gift(giftDescription.text.toString(), giftCost.text.toString(), "08/30/75")
             val person = Person(userName.text.toString(), reminderDate.text.toString(), gift)
 
-            FirebaseDatabase.getInstance().getReference("users").push()
-                    .setPriority(person)
+            if(!userUid.isNullOrEmpty()) {
+                FirebaseDatabase.getInstance().getReference("users").child(userUid).child("contacts")
+                        .push().setValue(person)
+            } else {
+                Log.e("Matt", "Error user UID is empty or null.")
+            }
+        }
+
+        if(intent.hasExtra(Constants.USER_UID)) {
+            userUid = intent.getStringExtra(Constants.USER_UID)
+            Log.e("Matt", "userUid: " + userUid)
         }
     }
-
 }

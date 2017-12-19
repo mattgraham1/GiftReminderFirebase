@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
@@ -20,11 +21,16 @@ import org.graham.com.giftreminderfirebase.models.Person
 
 class MainActivity : AppCompatActivity() {
 
+    var userUid: String = "";
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val userUid = intent.getStringExtra(Constants.USER_UID)
+        if(intent.hasExtra(Constants.USER_UID)) {
+            userUid = intent.getStringExtra(Constants.USER_UID)
+            Log.e("Matt", "userUid: " + userUid)
+        }
 
         var recyclerView = findViewById<RecyclerView>(R.id.main_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
@@ -32,9 +38,9 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView(recyclerView)
 
         fab.setOnClickListener { view ->
-            startActivity(Intent(this, AddUserActivity::class.java))
-            Snackbar.make(view, "Show Adding User", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            val addUserIntent = Intent(this, AddUserActivity::class.java)
+            addUserIntent.putExtra(Constants.USER_UID, userUid)
+            startActivity(addUserIntent)
         }
     }
 

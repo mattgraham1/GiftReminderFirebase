@@ -14,7 +14,7 @@ import java.util.*
 class MainAdapter(val personList: ArrayList<Person>) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener = View.OnClickListener { v ->
-        Log.d("Matt", "click...")
+        Log.d(MainAdapter::class.simpleName, "click...")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
