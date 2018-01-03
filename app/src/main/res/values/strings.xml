@@ -5,4 +5,5 @@
   <string name="error_user_exists">Error, user already exists!</string>
   <string name="error_invalid_email">Error, invalid email address!</string>
   <string name="error_weak_password">Error, weak password!</string>
+    <string name="action_logout">Logout</string>
 </resources>

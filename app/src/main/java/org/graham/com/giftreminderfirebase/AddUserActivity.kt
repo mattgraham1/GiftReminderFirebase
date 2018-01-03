@@ -1,44 +1,51 @@
 package org.graham.com.giftreminderfirebase
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import org.graham.com.giftreminderfirebase.models.Gift
 import org.graham.com.giftreminderfirebase.models.Person
 
 class AddUserActivity : AppCompatActivity() {
 
-    var userUid: String = ""
+    private val TAG: String = "AddUserActivity"
+    private var userUid: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_user)
 
-        val userName = findViewById(R.id.edittext_name) as EditText
-        val reminderDate = findViewById(R.id.edittext_reminder_date) as EditText
-        val giftCost = findViewById(R.id.edittext_cost) as EditText
-        val giftDescription = findViewById(R.id.edittext_gift_description) as EditText
+        val userName = findViewById<EditText>(R.id.edittext_name)
+        val reminderDate = findViewById<EditText>(R.id.edittext_reminder_date)
+        val giftCost = findViewById<EditText>(R.id.edittext_cost)
+        val giftDescription = findViewById<EditText>(R.id.edittext_gift_description)
 
         val submitButton = findViewById<Button>(R.id.button_submit)
         submitButton.setOnClickListener { view ->
-            // send to firebase.
+
+            //TODO: Update date of purchase
             val gift = Gift(giftDescription.text.toString(), giftCost.text.toString(), "08/30/75")
             val person = Person(userName.text.toString(), reminderDate.text.toString(), gift)
 
             if(!userUid.isNullOrEmpty()) {
-                FirebaseDatabase.getInstance().getReference("users").child(userUid).child("contacts")
-                        .push().setValue(person)
+                FirebaseDatabase.getInstance().getReference("users").child(userUid)
+                        .child(Constants.CONTACTS).push().setValue(person)
+                launchMainActivity()
             } else {
-                Log.e("Matt", "Error user UID is empty or null.")
+                Log.e(TAG, "Error user UID is empty or null.")
             }
         }
 
-        if(intent.hasExtra(Constants.USER_UID)) {
-            userUid = intent.getStringExtra(Constants.USER_UID)
-            Log.e("Matt", "userUid: " + userUid)
-        }
+        userUid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+    }
+
+    private fun launchMainActivity() {
+        val mainIntent = Intent(this, MainActivity::class.java)
+        startActivity(mainIntent)
     }
 }

@@ -13,8 +13,10 @@ import java.util.*
 
 class MainAdapter(val personList: ArrayList<Person>) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
+    private val TAG = "MainAdapter"
+
     private val mOnClickListener: View.OnClickListener = View.OnClickListener { v ->
-        Log.d(MainAdapter::class.simpleName, "click...")
+        Log.d(TAG, "click...")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -26,6 +28,8 @@ class MainAdapter(val personList: ArrayList<Person>) : RecyclerView.Adapter<Main
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder!!.title.text = personList[position].name
+        holder!!.giftName.text = personList[position].gift.name
+        holder!!.giftCost.text = personList[position].gift.cost
     }
 
     override fun getItemCount(): Int {
@@ -35,5 +39,7 @@ class MainAdapter(val personList: ArrayList<Person>) : RecyclerView.Adapter<Main
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val card = view.findViewById<CardView>(R.id.card)
         var title = view.findViewById<TextView>(R.id.cardview_title) as TextView
+        var giftName = view.findViewById<TextView>(R.id.textView_giftname) as TextView
+        var giftCost = view.findViewById<TextView>(R.id.textView_gift_cost) as TextView
     }
 }

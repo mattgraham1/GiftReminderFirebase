@@ -14,6 +14,7 @@ import org.graham.com.giftreminderfirebase.models.User
 
 
 class LoginActivity : AppCompatActivity() {
+    private val TAG: String = "LoginActivity"
     var firebaseAuth = FirebaseAuth.getInstance()!!
 
     private var editTextEmail: EditText? = null
@@ -30,16 +31,21 @@ class LoginActivity : AppCompatActivity() {
 
         buttonSignup = findViewById(R.id.button_signup)
         buttonSignup?.setOnClickListener { view ->
-            Log.d("Matt", "Signup clicked....")
+            Log.d(TAG, "Signup clicked....")
             buttonLogin?.isEnabled = false
             signup(editTextEmail?.text.toString(), editTextPassword?.text.toString())
         }
 
         buttonLogin = findViewById<Button>(R.id.button_login)
         buttonLogin?.setOnClickListener { view ->
-            Log.d("Matt", "login button clicked...")
+            Log.d(TAG, "login button clicked...")
             buttonSignup?.isEnabled = false
             login(editTextEmail?.text.toString(), editTextPassword?.text.toString())
+        }
+
+        if(firebaseAuth.currentUser != null) {
+            launchMainActivity(firebaseAuth.currentUser!!.uid)
+            finish()
         }
 
         val buttonDebug = findViewById<Button>(R.id.button_debug) as Button
@@ -82,7 +88,6 @@ class LoginActivity : AppCompatActivity() {
 
             if (task.isSuccessful) {
                 val currentUser = firebaseAuth.currentUser
-                writeUserToFirebase(currentUser!!)
                 launchMainActivity(currentUser?.uid)
             } else {
                 Toast.makeText(this, "Failed to log in!", Toast.LENGTH_LONG).show()
@@ -91,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun writeUserToFirebase(currentUser: FirebaseUser) {
-        Log.d("Matt", "display name: " + currentUser.displayName)
+        Log.d(TAG, "display name: " + currentUser.displayName)
         val user = User(currentUser.email!!, currentUser.uid)
         FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.uid)
                 .setValue(user)
@@ -111,14 +116,13 @@ class LoginActivity : AppCompatActivity() {
                 editTextEmail!!.error = getString(R.string.error_user_exists)
                 editTextEmail!!.requestFocus()
             } catch (e: Exception) {
-                Log.e("Matt", e.message)
+                Log.e(TAG, e.message)
             }
         }
     }
 
     private fun launchMainActivity(userUid: String?) {
         val mainIntent = Intent(this, MainActivity::class.java)
-        mainIntent.putExtra(Constants.USER_UID, userUid)
         startActivity(mainIntent)
     }
 }
