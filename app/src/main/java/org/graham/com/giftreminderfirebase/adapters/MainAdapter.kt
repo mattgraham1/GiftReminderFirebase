@@ -9,14 +9,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import org.graham.com.giftreminderfirebase.R
 import org.graham.com.giftreminderfirebase.models.Person
-import java.util.*
 
-class MainAdapter(val personList: ArrayList<Person>) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter() : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     private val TAG = "MainAdapter"
+    private var personList: List<Person> = emptyList()
 
     private val mOnClickListener: View.OnClickListener = View.OnClickListener { v ->
         Log.d(TAG, "click...")
+    }
+
+    constructor(persons: List<Person>) : this() {
+        this.personList = persons
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -34,6 +38,11 @@ class MainAdapter(val personList: ArrayList<Person>) : RecyclerView.Adapter<Main
 
     override fun getItemCount(): Int {
         return personList.size
+    }
+
+    public fun setAdapterItems(persons: List<Person>) {
+        this.personList = persons
+        notifyDataSetChanged()
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

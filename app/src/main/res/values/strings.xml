@@ -5,5 +5,9 @@
   <string name="error_user_exists">Error, user already exists!</string>
   <string name="error_invalid_email">Error, invalid email address!</string>
   <string name="error_weak_password">Error, weak password!</string>
-    <string name="action_logout">Logout</string>
+  <string name="action_logout">Logout</string>
+  <string name="name_hint">Name of Person</string>
+  <string name="reminder_date_hint">Reminder Date</string>
+  <string name="gift_description_hint">Gift Description</string>
+  <string name="gift_cost_hint">Gift Cost</string>
 </resources>
