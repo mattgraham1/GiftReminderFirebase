@@ -3,6 +3,8 @@ package org.graham.com.giftreminderfirebase
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -24,6 +26,11 @@ class AddUserActivity : AppCompatActivity() {
         val reminderDate = findViewById<EditText>(R.id.edittext_reminder_date)
         val giftCost = findViewById<EditText>(R.id.edittext_cost)
         val giftDescription = findViewById<EditText>(R.id.edittext_gift_description)
+
+        userName.onTextChanged { it }
+        reminderDate.onTextChanged { it }
+        giftCost.onTextChanged { it }
+        giftDescription.onTextChanged { it }
 
         val submitButton = findViewById<Button>(R.id.button_submit)
         submitButton.setOnClickListener { view ->
@@ -47,5 +54,16 @@ class AddUserActivity : AppCompatActivity() {
     private fun launchMainActivity() {
         val mainIntent = Intent(this, MainActivity::class.java)
         startActivity(mainIntent)
+    }
+
+    fun EditText.onTextChanged(cb: (String) -> Unit) {
+        this.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) { }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (cb.toString().isNotEmpty())
+                    error = null
+            }
+        })
     }
 }
