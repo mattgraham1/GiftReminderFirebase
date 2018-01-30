@@ -88,6 +88,8 @@ class MainActivity : AppCompatActivity() {
             return true
         } else if (id == R.id.action_logout) {
             FirebaseAuth.getInstance().signOut()
+            startActivity(Intent(this, LoginActivity::class.java))
+            return true
         }
 
         return super.onOptionsItemSelected(item)

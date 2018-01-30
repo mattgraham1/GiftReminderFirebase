@@ -97,11 +97,12 @@ class AddUserActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val dateOfPurchanse: String = SimpleDateFormat(Constants.PURCHASE_DATE_FORMAT, Locale.US).format(Date())
-            val gift = Gift(giftDescription.text.toString(), giftCost.text.toString(), dateOfPurchanse)
-            val person = Person(userName.text.toString(), reminderDate.text.toString(), gift)
+            val dateOfPurchase: String = SimpleDateFormat(Constants.PURCHASE_DATE_FORMAT, Locale.US).format(Date())
+            val gift = Gift(giftDescription.text.toString(), giftCost.text.toString(), dateOfPurchase)
+            // Empty user key here as the ViewModal data should update once user is added.
+            val person = Person("", userName.text.toString(), reminderDate.text.toString(), gift)
 
-            if(!userUid.isNullOrEmpty()) {
+            if(!userUid.isEmpty()) {
                 FirebaseDatabase.getInstance().getReference("users").child(userUid)
                         .child(Constants.CONTACTS).push().setValue(person)
                 launchMainActivity()

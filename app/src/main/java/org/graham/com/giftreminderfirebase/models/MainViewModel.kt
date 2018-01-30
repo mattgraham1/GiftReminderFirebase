@@ -15,8 +15,8 @@ class MainViewModel : ViewModel() {
     var persons: MutableLiveData<List<Person>> = MutableLiveData()
 
     fun getUsers(userUid: String): LiveData<List<Person>> {
-        FirebaseDatabase.getInstance().getReference("users").child(userUid).child(Constants.CONTACTS)
-                .addListenerForSingleValueEvent(object: ValueEventListener {
+        FirebaseDatabase.getInstance().getReference(Constants.USERS).child(userUid).child(Constants.CONTACTS)
+                .addValueEventListener(object: ValueEventListener {
 
                     override fun onCancelled(error: DatabaseError?) {
                         Log.e( TAG,"error: " + error?.message)
@@ -36,6 +36,7 @@ class MainViewModel : ViewModel() {
 
         children?.forEach {
             val person: Person = it.getValue(Person::class.java) as Person
+            person.key = it.key
             users.add(person)
         }
         return users
